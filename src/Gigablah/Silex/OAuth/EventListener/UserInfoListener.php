@@ -94,5 +94,6 @@ class UserInfoListener implements EventSubscriberInterface
         $token->setUser($userInfo['name']);
         $token->setEmail($userInfo['email']);
         $token->setUid($userInfo['id']);
+        $token->setRawUserInfo($userInfo);
     }
 }

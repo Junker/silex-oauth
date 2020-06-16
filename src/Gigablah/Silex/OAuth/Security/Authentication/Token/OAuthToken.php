@@ -16,6 +16,7 @@ class OAuthToken extends AbstractToken implements OAuthTokenInterface
     protected $uid;
     protected $email;
     protected $accessToken;
+    protected $rawUserInfo;
     protected $providerKey;
 
     /**
@@ -99,6 +100,17 @@ class OAuthToken extends AbstractToken implements OAuthTokenInterface
         $this->accessToken = $accessToken;
     }
 
+    public function getRawUserInfo()
+    {
+        return $this->rawUserInfo;
+    }
+
+    public function setRawUserInfo(array $rawUserInfo)
+    {
+        $this->rawUserInfo = $rawUserInfo;
+    }
+
+
     public function getProviderKey()
     {
         return $this->providerKey;
@@ -106,12 +118,12 @@ class OAuthToken extends AbstractToken implements OAuthTokenInterface
 
     public function serialize()
     {
-        return serialize(array($this->service, $this->uid, $this->email, $this->accessToken, $this->providerKey, parent::serialize()));
+        return serialize(array($this->service, $this->uid, $this->email, $this->accessToken, $this->rawUserInfo, $this->providerKey, parent::serialize()));
     }
 
     public function unserialize($str)
     {
-        list($this->service, $this->uid, $this->email, $this->accessToken, $this->providerKey, $parentStr) = unserialize($str);
+        list($this->service, $this->uid, $this->email, $this->accessToken, $this->rawUserInfo, $this->providerKey, $parentStr) = unserialize($str);
 
         parent::unserialize($parentStr);
     }

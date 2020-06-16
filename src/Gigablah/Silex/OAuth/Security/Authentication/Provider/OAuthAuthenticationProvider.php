@@ -70,6 +70,7 @@ class OAuthAuthenticationProvider implements AuthenticationProviderInterface
         $authenticatedToken->setAccessToken($token->getAccessToken());
         $authenticatedToken->setService($token->getService());
         $authenticatedToken->setUid($token->getUid());
+        $authenticatedToken->setRawUserInfo($token->getRawUserInfo());
         $authenticatedToken->setAuthenticated(true);
         $authenticatedToken->setUser($user);
 
