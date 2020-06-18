@@ -50,7 +50,9 @@ class UserInfoListener implements EventSubscriberInterface
         if (isset($config['user_endpoint'])) {
             $rawUserInfo = json_decode($oauthService->request($config['user_endpoint']), true);
         }
-        call_user_func($callback, $token, $rawUserInfo, $oauthService);
+
+        if (isset($rawUserInfo) && !empty($rawUserInfo))
+            call_user_func($callback, $token, $rawUserInfo, $oauthService);
     }
 
     /**
@@ -91,8 +93,15 @@ class UserInfoListener implements EventSubscriberInterface
             }
         }
 
-        $token->setUser($userInfo['name']);
-        $token->setEmail($userInfo['email']);
-        $token->setUid($userInfo['id']);
+        if ($userInfo['name'])
+            $token->setUser($userInfo['name']);
+
+        if ($userInfo['email'])
+            $token->setEmail($userInfo['email']);
+
+        if ($userInfo['id'])
+            $token->setUid($userInfo['id']);
+
+        $token->setRawUserInfo($rawUserInfo);
     }
 }
