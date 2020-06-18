@@ -144,11 +144,8 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
-    if (isset($app['security.token_storage'])) {
         $token = $app['security.token_storage']->getToken();
-    } else {
-        $token = $app['security']->getToken();
-    }
+}
 
     $app['user'] = null;
 

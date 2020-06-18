@@ -141,7 +141,7 @@ class OAuthServiceProvider implements ServiceProviderInterface
                 $app['dispatcher']->addSubscriber($app['oauth.user_provider_listener']);
 
                 return new OAuthAuthenticationListener(
-                    $app['security'],
+                    $app['security.token_storage'],
                     $app['security.authentication_manager'],
                     $app['security.session_strategy'],
                     $app['security.http_utils'],
