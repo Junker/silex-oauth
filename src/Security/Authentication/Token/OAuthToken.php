@@ -128,18 +128,4 @@ class OAuthToken extends AbstractToken implements OAuthTokenInterface
         $parentData = \is_array($parentData) ? $parentData : unserialize($parentData);
         parent::__unserialize($parentData);
     }
-
-    // deprecated sience 4.3
-    public function serialize()
-    {
-        return serialize(array($this->service, $this->uid, $this->email, $this->accessToken, $this->rawUserInfo, $this->providerKey, parent::serialize()));
-    }
-
-    // deprecated sience 4.3
-    public function unserialize($str)
-    {
-        list($this->service, $this->uid, $this->email, $this->accessToken, $this->rawUserInfo, $this->providerKey, $parentStr) = unserialize($str);
-
-        parent::unserialize($parentStr);
-    }
 }
