@@ -12,7 +12,8 @@
         }
     ],
     "require": {
-        "lusitanian/oauth": ">=0.3.5"
+        "lusitanian/oauth": ">=0.3.5",
+        "symfony/security": "^4.4"
     },
     "autoload": {
         "psr-4": {
