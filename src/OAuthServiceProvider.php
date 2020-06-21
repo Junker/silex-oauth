@@ -52,16 +52,11 @@ class OAuthServiceProvider implements ServiceProviderInterface, EventListenerPro
         };
 
         $app['oauth.csrf_token'] = $app->protect(function ($intention) use ($app) {
-            if (!isset($app['form.csrf_provider'])) {
+            if (!isset($app['csrf.token_manager'])) {
                 return null;
             }
 
-            $tokenManagerInterface = 'Symfony\Component\Security\Csrf\CsrfTokenManagerInterface';
-            if ($app['form.csrf_provider'] instanceof $tokenManagerInterface) {
-                return strval($app['form.csrf_provider']->getToken($intention));
-            }
-
-            return $app['form.csrf_provider']->generateCsrfToken($intention);
+            return strval($app['csrf.token_manager']->getToken($intention));
         });
 
         $app['oauth'] = function ($app) {
@@ -152,7 +147,7 @@ class OAuthServiceProvider implements ServiceProviderInterface, EventListenerPro
                     $options,
                     $app['logger'],
                     $app['dispatcher'],
-                    isset($options['with_csrf']) && $options['with_csrf'] && isset($app['form.csrf_provider']) ? $app['form.csrf_provider'] : null
+                    isset($options['with_csrf']) && $options['with_csrf'] && isset($app['csrf.token_manager']) ? $app['csrf.token_manager'] : null
                 );
             };
         });
